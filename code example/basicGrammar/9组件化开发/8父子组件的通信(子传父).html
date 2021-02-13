@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn :cmessage="message" :cmovies="movies" :c-info="info" @btnclick="func"></cpn><!-- 这个地方v-bind后面的变量是不支持驼峰的，要改成-连接 -->
+</div>
+
+
+<template id="cpn">
+  <div>
+    <h2>{{cmessage}}</h2>
+    <h2>{{cmovies}}</h2>
+    <h2>{{cInfo}}</h2>
+    <ul>
+      <li v-for="item in arr" @click="btnClick(item)">{{item.name}}</li>
+    </ul>
+  </div>
+</template>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      movies: ['海贼王', '进击的巨人', '火影忍者'],
+      info: 'aaaa'
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() { // 组件的data必须是函数 然后返回一个对象 里面是各种数据
+          return {
+            arr: [
+              {name: 'kobe', age: 10},
+              {name: 'james', age: 10},
+              {name: 'naruto', age: 10},
+              {name: 'ailen', age: 10}
+            ]
+          }
+        },
+        // props: ['cmovies', 'cmessage']// 这是数组的形式
+        props: { // 对象方式
+          // cmovies: Array,
+          // cmessage: String // 基本的形式
+          cmessage: {
+            type: String,
+            default: '哈哈哈哈哈',
+            required: true // 这样是必须存在
+          },
+          cmovies: {
+            types: Array,
+            default() {// 数组或者对象默认值得是函数返回一个对象 -- 工厂函数
+              return [1, 2, 3, 4]
+            }
+          },
+          cInfo: {
+            type: String
+          }
+        },
+        methods: {
+          btnClick(item) {
+            this.$emit('btnclick',item)
+          }
+        }
+      }
+    },
+    methods: {
+      func(item) {
+        console.log(item);
+      }
+    }
+  })
+</script>
+</body>
+</html>

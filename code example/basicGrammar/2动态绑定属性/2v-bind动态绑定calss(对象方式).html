@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .active {
+      color: red;
+    }
+
+    .line {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--  <h2 :class="active">{{message}}</h2> 普通方式没什么好说的-->
+  <h2 :class="{active: isActive,line: isLine}">{{message}}</h2>
+  <h2 :class="fun2()">{{message}}</h2>
+  <button v-on:click="fun1">按钮</button>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isActive: true,
+      isLine: false
+    },
+    methods: {
+      fun1: function () {
+        this.isActive = !this.isActive;
+      },
+      fun2: function () {
+        return {active: this.isActive,line: this.isLine};
+      }
+    }
+  })
+</script>
+</body>
+</html>

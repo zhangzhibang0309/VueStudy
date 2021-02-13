@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--.stop的使用-->
+  <div @click="divClick">
+    aaaaa
+    <button @click.stop="btnClick1">按钮</button> <!--这样会事件冒泡，stop可以阻止-->
+  </div>
+
+  <!--.prevent的使用-->
+  <a href="https://www.baidu.com/" @click.prevent="aClick">百度一下</a> <!--阻止标签原本的事件-->
+
+  <!--监听某个键盘按键-->
+  <input type="text" @keyup.enter="keyUp">
+
+  <!--.once的使用-->
+  <button @click.once="btnClick2">按钮</button> <!--只能触发一次事件-->
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      btnClick1() {
+        console.log('btnClick');
+      },
+      divClick() {
+        console.log('divClick');
+      },
+      aClick() {
+        console.log('aClick');
+      },
+      keyUp() {
+        console.log('keyUp');
+      },
+      btnClick2() {
+        console.log('btnClick2');
+      }
+    }
+  })
+</script>
+</body>
+</html>

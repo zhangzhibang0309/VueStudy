@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>{{url}}</h2>
+<!--  如果服务端返回了a标签，要把地址给解析出来，这时候就用到了v-html-->
+  <h2 v-html="url"></h2>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      url: "<a href='https://www.baidu.com'>百度一下</a>"
+    }
+  })
+</script>
+</body>
+</html>

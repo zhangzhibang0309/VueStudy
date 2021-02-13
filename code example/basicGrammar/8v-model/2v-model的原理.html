@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--  <input type="text" v-model="message">-->
+  <input type="text" :value="message"> <!-- 这就是单向绑定 -->
+  <input type="text" :value="message" @input="change"> <!-- 这就是实现的原理，监听input改变事件，再事件函数中改变message的值 -->
+  <input type="text" :value="message" @input="message = $event.target.value"> <!-- 这是另一种写法 -->
+  {{message}}
+
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      change(event) {
+        this.message = event.target.value;
+      }
+    }
+  })
+</script>
+</body>
+</html>

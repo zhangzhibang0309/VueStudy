@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn></cpn> <!-- 这两个组件的counter互不影响 也就是说是独立的 这就是为什么组件的data是函数 最下面解释-->
+  <cpn></cpn>
+</div>
+
+
+<template id="cpn">
+  <div>
+    <h2>{{title}}</h2>
+    <button @click="decrement">-</button>
+    {{counter}}
+    <button @click="increment">+</button>
+  </div>
+</template>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() { // 组件的data必须是函数 然后返回一个对象 里面是各种数据
+          return {
+            title: '我是标题111',
+            counter: 0
+          }
+        },
+        methods: {
+          increment() {
+            this.counter++;
+          },
+          decrement() {
+            this.counter--;
+          }
+        }
+      }
+    }
+  })
+
+  //  解释
+  function abc() {
+    return {
+      name: 'why',
+      age: 10
+    }
+  }
+
+  let obj1 = abc();
+  let obj2 = abc();
+  let obj3 = abc();
+
+  obj1.name = 'kobe';
+  console.log(obj1);
+  console.log(obj2);
+  console.log(obj3);
+  // 后面两个name都没改 说明这三个obj指向的地址不同 函数每次调用都开辟新的地址
+
+  const def = {
+    name: 'james',
+    age: 35
+  }
+
+  function hhh() {
+    return def;
+  }
+
+  let obj11 = hhh();
+  let obj22 = hhh();
+  let obj33 = hhh();
+
+  obj11.name = 'kobe';
+  console.log(obj11);
+  console.log(obj22);
+  console.log(obj33);
+
+  // 这三个全都改了 所以函数返回已有对象的话 指向的地址是同一个 为了增强这个组件的复用性 所以把data设计成函数
+</script>
+</body>
+</html>

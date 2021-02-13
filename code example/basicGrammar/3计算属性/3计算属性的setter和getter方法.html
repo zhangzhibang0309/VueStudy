@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>{{fullName}}</h2>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      firstName: 'Kobe',
+      lastName: 'Bryant'
+    },
+    computed: {
+      //下面是正常的写法
+      // fullName: function () {
+      //   return this.firstName + ' ' + this.lastName
+      // }
+
+    //  然后下面介绍计算属性实质的原理get set
+      fullName: {
+        // 但是这个set方法一般省略不写，这个是设置值的
+        // set: function (newValue) {
+        //   const names = newValue.split(' ');
+        //   this.firstName = names[0];
+        //   this.lastName = names[1];
+        // },
+
+        // 这个就是计算属性能不需要调用函数就可以取到返回值的原因，其实fullName是个对象，调用的里面的get方法。
+        get: function () {
+          console.log("ddd");// 只要是用到了这个计算属性 这里的get函数就会自动调用
+          return this.firstName + ' ' + this.lastName
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

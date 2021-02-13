@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+<!--  class值可以是数组，class1是字符串，当然也可以放变量，或者调用方法返回值-->
+  <h2 :class="['class1',class2,class3]">{{message}}</h2>
+  <h2 :class="fun1()">{{message}}</h2>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      class2: 'aaaaa',
+      class3: 'bbbbb'
+    },
+    methods: {
+      fun1: function () {
+        return ['class1', this.class2, this.class3];
+      }
+    }
+  })
+</script>
+</body>
+</html>

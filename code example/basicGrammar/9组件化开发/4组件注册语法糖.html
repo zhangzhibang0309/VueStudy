@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <my-cpn></my-cpn>
+
+  <cpn></cpn>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  <!-- 这种先写构造器 再去注册组件的方式不推荐 推荐语法糖 -->
+  // const cpnC = Vue.extend({
+  //   template: `
+  //     <div>
+  //       <h2>我是标题</h2>
+  //       <p>我是文字</p>
+  //     </div>`
+  // })
+  Vue.component('my-cpn', { // 这是全局组件
+    template: `
+      <div>
+        <h2>我是标题</h2>
+        <p>我是文字</p>
+      </div>`
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      'cpn': {
+        template: `
+      <div>
+        <h2>我是标题</h2>
+        <p>局部语法糖</p>
+      </div>`
+      }
+    }
+  })
+</script>
+</body>
+</html>

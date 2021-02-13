@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script >
+  const name = 'kobe'
+  const age = 40
+  const sex = 'male'
+
+  var obj = {
+    name,
+    age,
+    sex,
+    eat: function () {
+      console.log('我要吃饭');
+    },
+    dance() {
+      console.log('我要跳舞');
+    }
+  }
+// 不需要赋值就能够获取
+  console.log(obj);
+  obj.eat();
+  obj.dance();
+
+</script>
+</body>
+</html>

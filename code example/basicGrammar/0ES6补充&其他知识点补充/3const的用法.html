@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  // const name = 'kobe'
+  // name = 'james'// const是常量 所以不能改变
+
+  // const  name2// const必须再定义的时候就赋值
+
+  const obj = {
+    name: 'kobe',
+    age: 40,
+    sex: 'male'
+  }
+
+  console.log(obj);
+
+  obj.name = 'james'
+  obj.age = 35
+  obj.sex = '男'
+  // 改变对象内部属性没问题，但是不能改变obj的指向
+
+  console.log(obj);
+
+  // obj = {} // 这里是报错的，不能改变obj的指向
+</script>
+</body>
+</html>

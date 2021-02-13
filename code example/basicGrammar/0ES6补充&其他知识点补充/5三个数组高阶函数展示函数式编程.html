@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  <!--介绍三个数组的高阶函数-->
+  let arr = [1, 200, 34, 56, 78, 120];
+  <!--filter-->
+  let arr1 = arr.filter(function (n) {
+    return n < 100;
+  });
+  console.log(arr1);// 这个函数功能和它的名字差不多，对数组进行一些过滤，返回值值bool。
+
+  let arr2 = arr1.map(function (n) {
+    return n * 2;
+  })
+  console.log(arr2);// 这个函数翻译过来是映射，可以对数组中的每个元素进行一些操作之后再返回给一个数组。
+
+  let result = arr2.reduce(function (preValue, n) {
+    return preValue + n;
+  }, 0)
+  console.log(result);// 这个函数是对整个数组进行一些整合，回调函数里面需要两个参数，第一个是上一次调用这个函数时候的返回值，第二个参数是第一次调用函数时候的preValue
+  // 然后最后一次的返回值是最终结果。
+
+  // 然后加上箭头函数的语法展示一下函数式编程
+  // 需求：得到arr里面小于100的值然后全部乘二，求和。
+  let sum = arr.filter(n => n < 100).map(n => n * 2).reduce(((preValue, n) => preValue + n),0);
+  console.log(sum);
+
+</script>
+
+</body>
+</html>

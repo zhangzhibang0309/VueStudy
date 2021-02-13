@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <input type="text" v-model="message">
+  {{message}}
+  <!-- 这是用v-model取代了原生的value，这样可以实现双向绑定，如果只是给value复制的话，value值改变，meaasge不改变，但是message改变value改变，这是单向绑定。 -->
+  <!-- 然后如果二者改一个另一个都会变的话这就是双向绑定，v-model可以实现这个，原理也很简单，下个文件讲 -->
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+      tr {
+          border: 0;
+      }
+
+      thead {
+          background-color: rgb(248, 246, 248);
+      }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h2 v-if="books.length == 0">卖完啦啦啦啦</h2>
+
+  <div v-else>
+    <table border="1">
+      <thead>
+      <tr>
+        <td></td>
+        <td>书籍名称</td>
+        <td>出版日期</td>
+        <td>价格</td>
+        <td>购买数量</td>
+        <td>操作</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(item,index) in books" :key="item">
+        <td>{{index + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.date}}</td>
+        <td>{{item.price | showPrice}}</td>
+        <td>
+          <button @click="decrement(index)" :disabled="item.amount <= 1">-</button>
+          {{item.amount}}
+          <button @click="increment(index)">+</button>
+        </td>
+        <td>
+          <button @click="remove(index)">移除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <h2>总价格{{result}}</h2>
+  </div>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      books: [
+        {
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.00,
+          amount: 1,
+        },
+        {
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.00,
+          amount: 1,
+        },
+        {
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.00,
+          amount: 1,
+        },
+        {
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.00,
+          amount: 1,
+        },
+        {
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.00,
+          amount: 1,
+        }
+      ]
+    },
+    methods: {
+      decrement(index) {
+        this.books[index].amount--;
+      },
+      increment(index) {
+        this.books[index].amount++;
+      },
+      remove(index) {
+        this.books.splice(index, 1)
+      }
+    },
+    // 过滤器的使用
+    filters: {
+      showPrice(price) {
+        return '￥' + price.toFixed(2)
+      }
+    },
+    computed: {
+      result() {
+        let sum = 0;
+        for (let item of this.books){
+          sum += item.amount * item.price;
+        }
+        console.log(sum);
+        return sum;
+      }
+    }
+  })
+</script>
+</body>
+</html>

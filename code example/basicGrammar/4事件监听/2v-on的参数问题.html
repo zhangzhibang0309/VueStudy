@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <button @click="fun1()">按钮1</button> <!--这样有（）不传参的话是undefined-->
+  <button @click="fun1">按钮2</button><!--// 没有（）不传参的话是event事件参数-->
+  <button @click="fun2(123)">按钮3</button> <!--这样也是会有一个undefined-->
+  <button @click="fun2(123,$event)">按钮4</button><!--如果既想有自己传的参数，也想要event就用$event-->
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      fun1(e) {
+        console.log(e);
+      },
+      fun2(d1,d2) {
+        console.log(d1,d2)
+      }
+    }
+  })
+</script>
+</body>
+</html>

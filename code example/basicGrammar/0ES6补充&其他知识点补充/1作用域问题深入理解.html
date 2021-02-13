@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+
+<script >
+  var myBtn = document.getElementsByTagName('button');
+  // for (var i = 0; i < myBtn.length; i++) {
+  //   myBtn[i].onclick = function () {
+  //     console.log('我是第' + i + '个按钮')
+  //   }
+  // }// 这种操作 你不管点击哪个按钮都只是显示第五个 这就是因为var没有块级作用域
+
+  // i = 5;
+  // 这个地方，可以详细拆分成每一步是怎么执行的，这里没有块级作用域，所以这个i外面是怎么样的，里面就是怎么样的，出现问题
+  // {
+  //   i = 5
+  //   myBtn[i].onclick = function () {
+  //     console.log('我是第' + i + '个按钮')
+  //   }
+  // }
+
+  // {
+  //   i = 5
+  //   myBtn[i].onclick = function () {
+  //     console.log('我是第' + i + '个按钮')
+  //   }
+  // }
+
+  // {
+  //   i = 5
+  //   myBtn[i].onclick = function () {
+  //     console.log('我是第' + i + '个按钮')
+  //   }
+  // }
+
+  // {
+  //   i = 5
+  //   myBtn[i].onclick = function () {
+  //     console.log('我是第' + i + '个按钮')
+  //   }
+  // }
+
+  // {
+  //   i = 5
+  //   myBtn[i].onclick = function () {
+  //     console.log('我是第' + i + '个按钮')
+  //   }
+  // }
+
+
+
+//  如果想用仍然想用var，可以用闭包来解决（当然加个index自定义属性也行得通，这里就不说了）
+//   for (var i = 0; i < myBtn.length; i++) {
+//     (function (num) { // 这样会有什么效果呢，就是var在函数里面是有作用域的，所以进行闭包的时候，传入i，相当于这里有个num变量，每次接收i，作为缓存，然后num不会受外界i的影响了。
+//       myBtn[i].onclick = function () {
+//         console.log('我是第' + num + '个按钮')
+//       }
+//     })(i)
+//   }
+
+  // i = 100000
+  // 这里闭包，函数有作用域所以不会出现问题
+  // 每一步详细调用过程如下
+  // function (num) {
+  //     myBtn[i].onclick = function () {
+  //       console.log('我是第' + num + '个按钮')
+  //     }
+  //   }(0)
+  // 这里仔细想想，就算是闭包，最里面的事件函数还是回调的，回调的时候，num得找值，是形参传过来的，然后传参的时候是早就进行了，因为闭包是自调用函数，所以num是早就被赋值了的，调用的时候
+  // 找到num的值，我感觉这里并不是利用了什么函数具有作用域有缓存，是给他开了个num，这个num起到了个缓存的作用
+
+  // function (num) {
+  //     myBtn[i].onclick = function () {
+  //       console.log('我是第' + num + '个按钮')
+  //     }
+  //   }(1)
+
+  // function (num) {
+  //     myBtn[i].onclick = function () {
+  //       console.log('我是第' + num + '个按钮')
+  //     }
+  //   }(2)
+
+  // function (num) {
+  //     myBtn[i].onclick = function () {
+  //       console.log('我是第' + num + '个按钮')
+  //     }
+  //   }(3)
+
+  // function (num) {
+  //     myBtn[i].onclick = function () {
+  //       console.log('我是第' + num + '个按钮')
+  //     }
+  //   }(4)
+
+
+
+//  还可以用es6的let来进行解决，let是有块级作用域的
+  for (let i = 0; i < myBtn.length; i++) {
+    myBtn[i].onclick = function () {
+      console.log('我是第' + i + '个按钮')
+    }
+  }// 仅仅是是将var改成let就可以实现上面闭包的效果，其实本质差不多，都是类似在for里面开了个新的变量作为缓存i的值，这样就不会被外界的i的变化来影响了。
+
+  //let这里能够完成就很容易解释了，这个let她本身有作用域，再for里面，大概就像上面num那样，为自己开辟了一段缓存，i不会受到外面i改变的影响。
+  // myBtn[i].onclick = function () {
+  //   console.log('我是第' + i + '个按钮')
+  // }
+  // myBtn[i].onclick = function () {
+  //   console.log('我是第' + i + '个按钮')
+  // }
+  // myBtn[i].onclick = function () {
+  //   console.log('我是第' + i + '个按钮')
+  // }
+  // myBtn[i].onclick = function () {
+  //   console.log('我是第' + i + '个按钮')
+  // }
+  // myBtn[i].onclick = function () {
+  //   console.log('我是第' + i + '个按钮')
+  // }
+</script>
+</body>
+</html>

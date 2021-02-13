@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <div v-if="isUser">
+    <label for="">用户名登录</label>
+    <input type="text" placeholder="用户名登录" key="input1"> <!--加key的目的是区分两个不同的input阻止vue底层复用-->
+    <button @click="isUser = !isUser">切换登录方式</button>
+  </div>
+  <div v-else>
+    <label for="">邮箱登录</label>
+    <input type="text" placeholder="邮箱登录" key="input2">
+    <button @click="isUser = !isUser">切换登录方式</button>
+  </div>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isUser: true
+    },
+  })
+</script>
+</body>
+</html>

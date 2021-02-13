@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!-- 3.组件的使用 -->
+<div id="app">
+  <cpn1></cpn1>
+  <!--<cpn2></cpn2> 这里是无法调用子组件的 -->
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  /*子组件 子组件要写到父组件上面 因为父组件要引用子组件*/
+  const cpnC2 = Vue.extend({
+    template: `
+      <div>
+        啊啊啊啊啊啊
+      </div>`
+  })
+
+  /*父组件*/
+  const cpnC1 = Vue.extend({
+    template: `
+      <div>
+      <h2>我是标题</h2>
+      <cpn2></cpn2>
+      <p>我是文字</p>
+      </div>`,
+    components: {
+      cpn2: cpnC2
+    }
+  })
+
+
+  /*2.注册组件*/
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn1: cpnC1
+    }
+  })
+</script>
+</body>
+</html>

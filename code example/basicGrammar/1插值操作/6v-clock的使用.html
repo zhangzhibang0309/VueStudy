@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    [v-clock] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<!--我的理解就是这玩意就是一个属性，防止vue选还没解析的时候出现{{}}-->
+<div id="app" v-clock>
+  <h2>{{message}}</h2>
+</div>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  setTimeout(function () {
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+      }
+    })
+  }, 1000)
+</script>
+</body>
+</html>
