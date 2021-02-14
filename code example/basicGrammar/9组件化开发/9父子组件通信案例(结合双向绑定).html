@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn :number1="num1"
+       :number2="num2"
+       @num1change="num1change"
+       @num2change="num2change"
+  ></cpn>
+</div>
+
+
+<script src="../../lib/vue.js"></script>
+
+<template id="cpn1">
+  <div>
+    <!--    <input type="text" v-model="number1"> &lt;!&ndash; 如果这里你绑定上props里面的变量，改变num1，可以改变number1的值，但是改变number1的值，num1并不会改变，而且vue并不推荐你这样做，就是不推荐双向绑定props里面的东西 一般新开其他变量去接 然后手动双向绑定（别忘了就算直接上v-model也无法完全双向（在这个地方）） &ndash;&gt;-->
+    <input type="text" :value="dnumber1" @input="num1Input">
+    <br>
+    props:{{number1}}
+    <br>
+    data:{{dnumber1}}
+    <br>
+    <input type="text" :value="dnumber2" @input="num2Input">
+    <br>
+    props:{{number2}}
+    <br>
+    data:{{dnumber2}}
+  </div>
+</template>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      num1: 1,
+      num2: 1
+    },
+    methods: {
+      num1change(value) {
+        this.num1 = parseFloat(value)
+      },
+      num2change(value) {
+        this.num2 = parseFloat(value)
+      }
+    },
+    components: {
+      cpn: {
+        template: '#cpn1',
+        props: {
+          number1: Number,
+          number2: Number
+        },
+        data() {
+          return {
+            dnumber1: this.number1,
+            dnumber2: this.number2
+          }
+        },
+        methods: {
+          num1Input(event) {
+            this.dnumber1 = event.target.value
+            this.$emit('num1change', this.dnumber1)
+
+            this.dnumber2 = this.dnumber1 * 100
+            this.$emit('num2change', this.dnumber2)
+          },
+          num2Input(event) {
+            this.dnumber2 = event.target.value;
+            this.$emit('num2change', this.dnumber2)
+
+            this.dnumber1 = this.dnumber2 / 100
+            this.$emit('num1change', this.dnumber1)
+          }
+        }
+      }
+    },
+  })
+</script>
+</body>
+</html>

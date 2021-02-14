@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn></cpn>
+  <cpn ref="cpn2"></cpn>
+  <cpn></cpn>
+  <button @click="func1">按钮</button>
+</div>
+
+<template id="cpn">
+  <div>
+    <p>我是一个子组件</p>
+  </div>
+</template>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() {
+          return {
+            name: 'hhh'
+          }
+        }
+      }
+    },
+    methods: {
+      func1() {
+        console.log(this.$children); /*这种方式可以访问，返回一个数组然后按照索引来访问*/
+        console.log(this.$children[0].name);
+        console.log(this.$refs.cpn2); /*这样能避免子组件数量改变之后产生的错误*/
+        console.log(this.$refs.cpn2.name);
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

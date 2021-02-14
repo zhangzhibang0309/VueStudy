@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn>
+    <button>按钮</button> <!--这里放替换插槽的内容-->
+  </cpn>
+
+  <cpn></cpn>
+
+  <cpn>
+    <i>我是i</i>
+  </cpn>
+
+  <cpn>
+    <div>我是div</div>
+    <p>我是p元素</p>
+    <span>我是span元素</span> <!--可以将一堆标签去替换插槽-->
+  </cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>hahahahaha</h2>
+    <div>我是cpn</div>
+    <slot>
+      <button>按钮</button> <!--这是插槽的默认值 可以没有-->
+    </slot>
+  </div>
+</template>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn: {
+        template: '#cpn'
+      }
+    }
+  })
+</script>
+</body>
+</html>
