@@ -27,7 +27,10 @@
     //  然后下面介绍计算属性实质的原理get set
       fullName: {
         // 但是这个set方法一般省略不写，这个是设置值的
-        // set: function (newValue) {
+        // 这个set方法，如果不设置的话这个计算属性就是一个只读属性，在控制台中是没法修改它的值的,他不跟mustach语法一样，那个可以随便修改它的值，这个计算属性只有加上了set方法之后才可以进行修改值，但是我们的计算属性一般就让他是只读就可以了，所以一般就直接不写set方法。
+
+        // set: function (newValue) { /*这个newValue是怎么赋值的呢，就是你在控制台中对这个计算属性进行修改的之后，那个修改后的值会自动赋值到这里面*/
+        //   console.log(newValue);
         //   const names = newValue.split(' ');
         //   this.firstName = names[0];
         //   this.lastName = names[1];
