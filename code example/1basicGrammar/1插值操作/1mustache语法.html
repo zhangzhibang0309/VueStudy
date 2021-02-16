@@ -12,6 +12,8 @@
   <h2>{{firstName + ' ' + lastName}}</h2>
   <h2>{{firstName}} {{lastName}}</h2>
   <h2>{{counter * 2}}</h2>
+
+  <h1>{{number1}}</h1>
 </div>
 <script src="../../lib/vue.js"></script>
 <script>
@@ -19,9 +21,7 @@
     el: '#app',
     data: {
       message: '你好啊',
-      firstName: 'Kobe',
-      lastName: 'Bryant',
-      counter: 100
+      number1: 100
     },
   })
 </script>

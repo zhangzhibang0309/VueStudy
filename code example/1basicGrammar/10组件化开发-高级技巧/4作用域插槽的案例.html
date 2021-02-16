@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn></cpn>
+  <cpn>
+    <template slot-scope="slot">
+      <span v-for="item in slot.data">{{item}}-</span> <!-- 这种就是在父组件里面拿到自组建的数据 然后父组件决定展示形式 -->
+      <!-- span>{{slot.data.join('-')}}</span> --> <!-- 这是一个数组函数的用法 -->
+    </template>
+  </cpn>
+  <cpn></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <slot :data="arr">
+      <ul>
+        <li v-for="item in arr">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() {
+          return {
+            arr: ['JavaScript', 'java', 'python', 'swift', 'Go', 'c++']
+          }
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

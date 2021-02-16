@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!-- 编译作用域说的就是 -->
+<div id="app">
+  <cpn v-show="isTrue"></cpn> <!--这里能够明显的看出来 这个isTrue其实是模板所在的组件 这个案例就是说明这个问题-->
+</div>
+
+
+<template id="cpn">
+  <div>
+    <h2>
+      我是子组件
+    </h2>
+  </div>
+</template>
+
+<script src="../../lib/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isTrue: true
+    },
+    components: {
+      cpn: {
+        template: '#cpn'
+      },
+      data() {
+        return {
+          isTrue: false
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>
