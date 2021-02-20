@@ -1,6 +1,6 @@
-# vuecli2test
+# runtimecompiler
 
-> test vue-cli2
+> A Vue.js project
 
 ## Build Setup
 

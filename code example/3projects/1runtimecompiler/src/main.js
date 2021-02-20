@@ -10,4 +10,8 @@ new Vue({
   el: '#app',
   components: { App },
   template: '<App/>'
+
+  // runtime-compiler
+  // template -> ast -> render -> vdom ->UI
 })
+// 具体的可在两个项目中看看

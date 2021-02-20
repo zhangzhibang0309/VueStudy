@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  // 1.基本使用
+  const func = function () {
+    console.log('普通函数')
+  }
+  func()
+  const fun = () => {
+    console.log('=>>>')
+  }
+  fun()
+
+  // 2.参数
+  const fun1 = (num1, num2) => {
+    console.log((num1 + num2))
+  }
+  fun1(1, 2)
+
+  const fun2 = num1 => { // 只有一个参数的话可以省略（）
+    console.log(num1);
+  }
+  fun2(1)
+
+  // 3.函数体
+  const fun3 = num1 => num1 // 只有一行代码而且是return的时候，可以直接不需要加{}
+  console.log(fun3(333));
+
+  const fun4 = num1 => console.log(num1) // 其实这里也是return的这个consolo.log语句，但是log函数没有返回值，只是调用了一下
+  fun4(444)
+
+  // 4.this
+  const fun5 = function () {
+    console.log(this)
+  }
+  fun5()
+
+  const fun6 = () => {
+    console.log(this)
+  }
+  fun6()
+
+  const obj = {
+    aaa() {
+      setTimeout(function () {
+        setTimeout(function () {
+          console.log(this) // window
+        })
+
+        setTimeout(() => {
+          console.log(this) // window
+        })
+      })
+
+      setTimeout(() => {
+        setTimeout(function () {
+          console.log(this) // window
+        })
+
+        setTimeout(() => {
+          console.log(this) // aaa 不知道为什么在别的地方看到的是obj？？？
+        })
+      })
+      console.log(this)
+    }
+  }
+  obj.aaa()
+  // 总结func形式的匿名函数this指向window，如果是箭头函数就一层一层的往上找this就可以了
+</script>
+</body>
+</html>
