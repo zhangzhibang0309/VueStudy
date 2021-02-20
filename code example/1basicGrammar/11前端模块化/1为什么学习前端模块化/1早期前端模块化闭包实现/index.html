@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!-- 前端代码复杂带来的问题
+      1. 顺序问题
+      2.变量重名问题
+-->
+
+<!-- 这几个文件是最早期的前端模块化的实现，基本思路就是闭包解决崇明变量问题，然后return一个对象将自己的一些属性方法给导出来，然后其他模块去用，但是还是没有解决顺序依赖问题 -->
+
+<script src="aaa.js"></script>
+<script src="main.js"></script>
+<script src="mmm.js"></script>
+<script src="bbb.js"></script>
+</body>
+</html>
