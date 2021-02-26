@@ -221,17 +221,38 @@ new Vue({
 这里介绍前后端开发模式的历程，以及对于渲染方式以及路由管理的介绍。
 路由就是一种映射关系，前端路由交给前端管理url与html css等资源的关系，而后端路由是由后端来做这种事情。<br>
 ##### 第一个阶段--后端渲染
-![img.png](img.png)
+![img.png](code example/imgs/beRender.png)
 整体项目的架构如上图所示，这是最早的一种开发模式，前端只进行一些静态页面的构建，动态的数据绑定等等的工作全部交给后端来处理。比较典型的一个例子就是jsp，当然这种方式也是采用后端路由，后端进行url与静态资源的映射关系，这时候前后端还没有分离，所以后端任务量巨大，项目不好维护也不好合作。
 ##### 第二个阶段--前后端分离
-![img_1.png](img_1.png)
+![img_1.png](code example/imgs/befeSeparate.png)
 如图所示，这个阶段似乎没有明确的前后端路由概念，但是已经开始进行前端渲染了，大部分页面都是由前端的js代码进行页面展示，不需要后端再去处理前端html的东西了。
 ##### 第三个阶段--SPA单页面复应用
-![img_2.png](img_2.png)
+![img_2.png](code example/imgs/SPA.png)
 这个阶段也就是现在正处于的阶段，前端渲染并且由前端管理路由。整个web系统只有一个页面，也就是只有一套html css js，前端处理好映射关系之后，请求服务器，一次就把所有的前端代码请求下来了，每次url改变的时候页面不刷新，也就是不会再次请求服务器（这里还是需要再做一些处理才能实现）。只从代码里面将这个页面的组件模块给抽离出来，进行渲染。然后对api接口的请求还是如同之前的js接口实现。
 #### 路由实现url改变而不请求资源的实现机制
-![img_3.png](img_3.png)<br>
+![img_3.png](code example/imgs/router1.png)<br>
 主要的是两种方式，一种是location修改url的hash，另一种是html5的history的pushState方法，这个相当于压栈，所以他还有类似栈的一些操作。
-![img_4.png](img_4.png)<br>
+![img_4.png](code example/imgs/router2.png)<br>
 history还有go方法，go（-1）相当于弹出一个栈，与之对应的方法是.back。go（1）是压进去刚才弹出来的栈，相当于.forward
 
+#### 动态路由
+#### 打包之后的文件解析
+![img.png](code example/imgs/buildCatalogue.png)<br>
+这是vue项目实际打包之后的结构
+#### 路由懒加载 
+需要懒加载的原因是如果项目巨大，所有的js文件都放在app那个文件里面，请求时间过程的话可能页面会有一段时间是空白，懒加载是把一个个组件给分离开，这样就是用到哪个组件请求哪个，实现方式就是修改路由文件里面组件的导入形式，我的项目代码里面有（4router里面第一个项目），然后打包在dist里面的js文件夹有，就会生成对应的组件js文件
+#### 嵌套路由
+就是children属性，可以存放一些子路由
+#### router参数传递
+通过$route可以访问到query的数据。<br>
+```
+http://localhost:8080/profile?name=zzb&age=21&height=181
+```
+这里后面多了一些东西也就是?后面的，其实这就是query（查询）<br>
+详细解释的话这里得说一下url的各部分组成，这里拿维基百科的图片
+![img.png](code example/imgs/url.jpg)
+解释一下就是：<br>
+协议://主机:端口:/路径?查询<br>
+scheme://host:port:/path?auery#fragment
+#### $route和$router
+#### 导航守卫
