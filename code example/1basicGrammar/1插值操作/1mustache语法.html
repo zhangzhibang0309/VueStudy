@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="app">
-  <h2>{{message}}</h2>
+  <h2 :class='classValue' @click='func'>{{message}}</h2>
   <h2>{{message}},李银河</h2>
   <h2>{{firstName + lastName}}</h2>
   <h2>{{firstName + ' ' + lastName}}</h2>
@@ -21,8 +21,14 @@
     el: '#app',
     data: {
       message: '你好啊',
-      number1: 100
+      number1: 100,
+      classValue: ''
     },
+    methods: {
+      func() {
+        this.classValue = 'aaa'
+      }
+    }
   })
 </script>
 </body>

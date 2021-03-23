@@ -11,7 +11,11 @@
     <!--  只写个replace，然后再路由js文件里面再进行一个配置  -->
     <!--    <router-link :to="{path: '/profile',query: {name: 'zzb',age: 21,height: 181}}" tag="button">档案</router-link>-->
     <button @click="profileRouter">档案</button> <!-- 如果不用router-link实现路由跳转的话传递query就要在函数里面进行传参，详见profileRouter函数 -->
-    <router-view></router-view>
+
+    <!--    keep alive 这个可以使渲染出来的组件拥有缓存 每次跳转路由当前组件不会被销毁-->
+    <keep-alive exclude='Profile,About'>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -45,12 +49,15 @@ export default {
         }
       })
     }
+  },
+  create() {
+    console.log('creat');
   }
 }
 </script>
 
 <style scoped>
 .active {
-  color: blue;
+  color: #0000ff;
 }
 </style>

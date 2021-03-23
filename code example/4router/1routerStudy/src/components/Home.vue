@@ -11,7 +11,24 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data() {
+    Path: '/home/news'
+  },
+  created() {
+    console.log('home-created');
+  },
+  destroyed() {
+    console.log('home-destroyed');
+  },
+  activated() {
+    this.$router.push(this.path)
+    console.log('aaa');
+  },
+  beforeRouteLeave(to,from,next) {
+    this.path = this.$route.path;
+    next()
+  }
 }
 </script>
 

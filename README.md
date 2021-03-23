@@ -234,8 +234,47 @@ new Vue({
 主要的是两种方式，一种是location修改url的hash，另一种是html5的history的pushState方法，这个相当于压栈，所以他还有类似栈的一些操作。
 ![img_4.png](code example/imgs/router2.png)<br>
 history还有go方法，go（-1）相当于弹出一个栈，与之对应的方法是.back。go（1）是压进去刚才弹出来的栈，相当于.forward
+#### 安装路由
+各种配置
+#### 路由映射配置和呈现
+映射配置就是在router文件夹里面的index文件，在里面进行各种路由配置。
+呈现是将你的组件根据你的映射关系的路由地址，来决定渲染哪一个组件，就是之前说的spa，单页面复应用，都渲染在app.vue这个组件里面，然后在里面设置router-link，配置对应的路由，然后进行渲染。
+```javascript
+    <router-link to="/home">首页</router-link>
+    <router-link to="/about">关于</router-link>
+    <router-view><router-view> /*这是决定你的组件显示的位置*/
+```
+呈现的地方如上面代码所示，这些都是写在app.vue里面的
+#### 重定向
+由于默认路径''，所以你不点击router-link触发路径跳转的时候页面是空白的，所以要给‘’这个路径进行重定向，就是在路由配置文件里的routes里面添加一个对象，配置如下
+```javascript
+  {
+    path: '',
+    redirect: '/home' // 这是修改默认路径，重定向到Home
+  },
+```
+#### 路径hash值改成history模式
+```javascript
+const router = new Router({
+  routes, // 这里必须是routes
+  mode: 'history', // 将url的hash形式改为history，这样就是不会显示#，
+})
+给router再添加一个属性，mode可以更改
+```
+#### router-link标签里面的属性
+* tag可以更改显示出来的标签
+* replace不可返回
+* active-class，默认活跃的link会有一个router-link-active,可以利用这个直接设置一些活跃的标签的css,但是这个比较长，可以用active-class修改这个class，然后在router配置文件里面的router里面加这条属性  linkActiveClass: 'active',这样所有的活跃link的class都是active了。
+```css
+.active {
+  color: blue;
+}
+```
+#### 代码手动路由跳转
+很简单，app.vue里面看看就行
 
 #### 动态路由
+就是每个路由下面有多个路由页面，/user/zhangsan这样的。
 #### 打包之后的文件解析
 ![img.png](code example/imgs/buildCatalogue.png)<br>
 这是vue项目实际打包之后的结构
@@ -254,5 +293,74 @@ http://localhost:8080/profile?name=zzb&age=21&height=181
 解释一下就是：<br>
 协议://主机:端口:/路径?查询<br>
 scheme://host:port:/path?auery#fragment
-#### $route和$router
+#### vue-touter参数传递
+1. 方式一 动态路由--传递一个参数
+   配置好动态路由后，在子组件里面通过$route.params.（动态路由：后面那个参数）就可以获得到路由最后的那个参数。
+2. query的方式--传递大量数据
+   在给router-link的to赋值的时候，里面也可以放一个对象{}，然后里面各种参数的配置如下。
+```
+{
+  path: '/profile',
+  query: {
+    name: 'zzb',
+    age: 21,
+    height: 181}
+}
+```   
+path就是放地址的地方，后面的query可以起到传递参数的作用，加上query之后，里面这些参数，可以在子组件中通过$route.query.name来访问到，而且这时候浏览器上面的url也会多一些query.
+当然，你也可以自己写个button或者其他东西来实现路由跳转并且传递query,代码如下。
+```javascript
+    profileRouter() {
+      this.$router.push({
+        path: '/profile',
+        query: {
+          name: 'zzb',
+          age: 21,
+          height: 181
+        }
+      })
+    }
+```
+#### $router和$route
+$router是你在router配置文件里new出来的vue对象，不管你在哪什么时候用$router都指向它。
+而$route指的是目前正处于活跃的路由的一个对象。
 #### 导航守卫
+每次跳转路由的时候，如果想跟着改对应的网页标签名：
+第一种方法是在每个组件里面都写一个生命周期函数，create的时候document.title给改了，但是这样比较麻烦。
+第二种方式，在router配置文件里面添加下面代码
+```javascript
+router.beforeEach((to, from, next) => {
+  // 从from跳转到to
+  document.title = to.matched[0].meta.title
+  console.log(to);
+  next() // next()函数一定不能忘记调用，否则页面无法完成路由跳转
+})
+```
+这个函数可以在每次路由跳转的时候调用，给每个组件的路由添加一个meta对象，然后在里面添加一个title，就能使用如上方法，但是这个matched是干嘛的呢，是防止动态路由出现undefined的情况。
+```javascript
+    meta: {
+      title: '档案'
+    }
+```
+导航守卫其实就是一些钩子函数，这里不仅有前置守卫beforeEach，还有后置钩子afterEach，这俩都是写在router的index.js文件里面的作为全局导航首位。它也有某个路由的导航守卫，还有某个组件的导航首位，详细的可以去官网查看。
+#### keep-alive
+保证离开某个组件的时候不会被销毁（不要让组件频繁销毁，保留一些状态），而且使用keep-alive的时候才能用组件自己的两个钩子函数（activated/deactivated）。
+下面我来解释一下这里遇到的一个🕳，这里的home组件下面还有俩子组件news和message，为了实现跳转其他路由的时候这俩组件有缓存，就是选中了message跳走再调回去不会改变，这里用keep-alive吧view-router给包了起来，可以用ceeated和destroyed这俩钩子函数检验一下，看看是不是这样之后组件就不会循环创建和销毁了。然后这里因为路由的各种问题，导致没法直接实现刚才说的那个需求，所以需要用钩子函数和导航守卫来配合一下，
+```javascript
+  activated() {
+    this.$router.push(this.path)
+  },
+  beforeRouteLeave(to,from,next) {
+    this.path = this.$route.path;
+    next()
+  }
+```
+最后是这样实现了这个需求，当然这个path已经再上面的data里面定义了。就这样实现了这个一时兴起的需求。
+然后这里强调一下导航首位。导航守卫和钩子函数还不太一样，钩子函数是写在组件里面的，也就是.vue文件，但是导航首位分为多种，全局导航首位，写在router配置文件里面，组件内导航首位，还有路由独享的导航首位，这些具体的各种导航守卫还没仔细的去看。https://router.vuejs.org/zh/guide/advanced/navigation-guards.html,这是官方文档可以看看。
+#### keep-alive的属性
+1. include -- 只有匹配的组件会被缓存
+2. exclude -- 匹配的组件不会被缓存
+```javascript
+    <keep-alive exclude='Profile,About'>
+    这代表Profile和About这俩组件不会被keep-alive
+```

@@ -66,11 +66,17 @@ const router = new Router({
   linkActiveClass: 'active',
 })
 
+// 前置守卫（guard）
 router.beforeEach((to, from, next) => {
   // 从from跳转到to
   document.title = to.matched[0].meta.title
-  console.log(to);
+  console.log('+++++');
   next()
+})
+
+// 后置钩子（hook）
+router.afterEach((to ,from) => {
+  console.log('-----');
 })
 
 export default router
