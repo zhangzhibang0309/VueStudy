@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+</body>
+<script>
+  new Promise((resolve, reject) => {
+    // 在这里进行网络请求，拿到数据，然后把把数据传参给data，在下面的then进行处理
+    setTimeout(() => {
+      // resolve('Hello Okkk')
+      reject('Hello Error')
+    }, 1000)
+  }).then(data => {
+    console.log(data);
+  }, err => {
+    console.log(err);
+  })
+</script>
+</html>

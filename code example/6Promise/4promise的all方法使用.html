@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  <!-- 这个all方法就是如果你有两次网络请求 还要等到两次请求全部完成才进行处理 就用all方法 请求玩再下面的then里面进行处理 只有两次请求全部完成他才会去执行 -->
+  Promise.all([
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({name: 'z', age: 20})
+      }, 1000)
+    }),
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({name: 'x', age: 18})
+      }, 2000)
+    })
+  ]).then((result) => {
+    console.log(result)
+  })
+</script>
+</body>
+</html>
