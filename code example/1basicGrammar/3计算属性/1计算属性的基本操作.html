@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+      * {
+          margin: 0;
+          padding: 0;
+      }
   </style>
 </head>
 <body>
@@ -17,6 +17,7 @@
   <h2>{{fullName}}</h2>
   <h2>{{fullName}}</h2>
   <h2>{{fullName}}</h2>
+  <h2>{{count}}</h2>
 </div>
 
 <script src="../../lib/vue.js"></script>
@@ -26,11 +27,15 @@
     data: {
       message: '你好啊',
       firstName: 'Kobe',
-      lastName: 'Bryant'
+      lastName: 'Bryant',
+      counter: 100
     },
     computed: {
-      fullName: function () {
+      fullName() {
         return this.firstName + ' ' + this.lastName;
+      },
+      count() {
+        return this.counter + 99
       }
     }
   })

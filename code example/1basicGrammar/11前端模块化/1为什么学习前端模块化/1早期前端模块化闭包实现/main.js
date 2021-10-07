@@ -1,4 +1,4 @@
-;(function () {
+(function () {
   // 1.想使用flag
   if (moduleA.flag) {
     console.log('小明是天才 哈哈哈哈---模块化');

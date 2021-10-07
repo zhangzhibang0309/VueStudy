@@ -11,33 +11,33 @@
   // 处理：aaa111 -> 自己处理（10行代码）
   // 处理：aaa111222 -> 自己处理
 
-  //  第一种写法
-  // new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     resolve('aaa')
-  //   }, 1000)
-  // }).then(res => {
-  //   //  1.自己处理十行代码
-  //   console.log(res, '第一层的十行处理代码')
-  //
-  //   // 对结果进行的第一次处理
-  //   return new Promise((resolve, reject) => {
-  //     // resolve(res + '111')
-  //     reject('error')
-  //   })
-  // }).then(res => {
-  //   // 第二层的十行处理代码
-  //   console.log(res, '第二层的世航处理代码')
-  //
-  //   // 对结果的第二次处理
-  //   return new Promise((resolve, reject) => {
-  //     resolve(res + '222')
-  //   })
-  // }).then(res => {
-  //   console.log(res, '第三次的十行处理代码')
-  // }).catch(err => {
-  //   console.log(err);
-  // })
+   // 第一种写法
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('aaa')
+    }, 1000)
+  }).then(res => {
+    //  1.自己处理十行代码
+    console.log(res, '第一层的十行处理代码')
+
+    // 对结果进行的第一次处理
+    return new Promise((resolve, reject) => {s
+      // resolve(res + '111')
+      reject('error')
+    })
+  }).then(res => {
+    // 第二层的十行处理代码
+    console.log(res, '第二层的世航处理代码')
+
+    // 对结果的第二次处理
+    return new Promise((resolve, reject) => {
+      resolve(res + '222')
+    })
+  }).then(res => {
+    console.log(res, '第三次的十行处理代码')
+  }).catch(err => {
+    console.log(err);
+  })
 
   // 为什么要简化 因为他不需要异步
   //  第二种写法 简便写法
@@ -51,7 +51,7 @@
 
     // 对结果进行的第一次处理
     // return Promise.reject('error') // 抛出异常方法1
-    throw 'error mrssage'
+    // throw 'error mrssage'
   }).then(res => {
     // 第二层的十行处理代码
     console.log(res, '第二层的世航处理代码')
